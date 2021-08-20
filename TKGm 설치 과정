@@ -5,6 +5,9 @@
 # tanzu plugin list 
 # tanzu plugin install --local cli all
 
+** 중요한 점: tanzu cli version 이 v1.3.0 or v1.3.1 에 따라 management-cluster UI 로 설치할 때 호환되는 OS-Image를 선택하라고 선택지에 확인할 수 있다 
+--> 저번에는 cache 가 남아있는 줄 알았지만 cache 문제가 아닌 tanzu cli version 의 문제였다
+
 # gzip -d kubectl-cli-v1.20.4 
 # cp kubectl-cli-v1.20.4 /usr/local/bin/kubectl
 
