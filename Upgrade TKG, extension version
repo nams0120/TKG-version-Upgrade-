@@ -2,6 +2,10 @@ TKG version upgrade (v1.3.0 -> v1.3.1)
 ** tkg v1.3.0 부터는 image repository 가 바뀜 ( registry.tkg.vmware.run -> projects.registry.vmware.com/tkg )
 이걸 바꾸고 xxx-data-values 시크릿을 생성해야함 v1.2.0 -> v1.3.x 로 올라갈 때 유의
 
+** v1.3.1부터 모든 tanzu extension 리소스는 Tanzu Mission Control Extension Manager로 관리하지않고 extension 리소스는 kapp controller를 사용하여 배포
+bundle/extensions/ 디렉토리에 tmc-extension-manager.yaml 이 사라지며 v1.3.0 버전에서 배포한 tmc-extension 관련된 모든 리소스는 삭제해야한다.
+--> https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-upgrade-tkg-extensions.html
+
 1. Tanzu cli v1.3.1 / kubectl cli v1.20.5 다운로드 --> my.vmware.com
 
 2. 압축파일 압축해제  
@@ -69,7 +73,7 @@ my.vmware.com
 eg) # tkg-extensions-v1.3.0+vmware.1/ 과 같은 이름으로 디렉토리가 생성된다 
 --> 기호에 맞게 디렉토리명 변경
 
-2. 클러스터가 Tanzu Mission Control과 연동되어있지 않다면 tmc-extension-manager 삭제
+2. tmc-extension-manager 삭제 (클러스터가 Tanzu Mission Control과 연동되어있지 않다면)
 # kubectl delete -f tmc-extension-manager.yaml
 --> 1-3 에서 생성된 디렉토리에서 cd extensions/ 로 가보면 YAML 파일 확인가능 
 
@@ -87,6 +91,7 @@ Extension upgrade
 - 1-3. 에서 생성된 디렉토리에 존재하는 파일을 이용하여 extension upgrade는 진행
 - 클러스터가 TMC 에 연동이 되어있지 않다면 (배포된 extension 리소스 삭제)
   --> kubectl get extensions -A -> kubectl delete extensions <extension 이름> --namespace <해당 extension이 배포되어있는 네임스페이스>
+  --> v1.3.1 부터는 extension 리소스를 더이상 extension 으로 관리하지않고 kapp controller를 사용하여 관리하기 때문
 
 contour upgrade
 
